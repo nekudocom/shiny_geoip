@@ -1,0 +1,14 @@
+# Eclipse/PDT
+/.settings/
+/.buildpath
+/.project
+
+# PhpStorm
+.idea
+
+# OSX
+**.DS_Store
+
+# Composer
+vendor
+composer.lock
