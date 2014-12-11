@@ -1,22 +1,20 @@
-<?php namespace Geoip\Action;
+<?php namespace ShinyGeoip\Action;
 
-use Geoip\Core\Action;
-use Geoip\Responder\ShowHomepageResponder;
+use ShinyGeoip\Core\Action;
+use ShinyGeoip\Responder\ShowHomepageResponder;
 use GeoIp2\Database\Reader;
 
 class ShowHomepageAction extends Action
 {
+    /**
+     * Loads geoip-data for client ip and displays homepage.
+     */
     public function __invoke()
     {
         $reader = new Reader($this->app->pathCityDb);
         $record = $reader->city($_SERVER['REMOTE_ADDR']);
-        echo "<pre>";
-        print_r($record);
-        echo "</pre>";
-
-
         $responder = new ShowHomepageResponder;
-        $responder->set('foo', 'bar');
+        $responder->set('record', $record);
         $responder->home();
     }
 }

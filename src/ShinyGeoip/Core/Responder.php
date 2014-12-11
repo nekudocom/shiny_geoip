@@ -1,4 +1,4 @@
-<?php namespace Geoip\Core;
+<?php namespace ShinyGeoip\Core;
 
 use Slim\View;
 

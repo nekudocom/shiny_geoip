@@ -1,15 +1,16 @@
 <?php
 require_once '../vendor/autoload.php';
 
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 $app = new \Slim\Slim;
+
+// Set path to GeoLite city database:
 $app->pathCityDb = __DIR__ . '/../data/GeoLite2-City.mmdb';
+
+// Routing
 $app->get(
     '/',
     function () use ($app) {
-        $showHomepageAction = new \Geoip\Action\ShowHomepageAction($app);
+        $showHomepageAction = new \ShinyGeoip\Action\ShowHomepageAction($app);
         $showHomepageAction->__invoke();
     }
 );
