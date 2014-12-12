@@ -3,6 +3,7 @@
 use ShinyGeoip\Core\Action;
 use ShinyGeoip\Domain\ApiOptionsDomain;
 use ShinyGeoip\Domain\CityDbDomain;
+use ShinyGeoip\Domain\RecordDomain;
 use ShinyGeoip\Responder\ApiRequestResponder;
 
 class ApiRequestAction extends Action
@@ -31,9 +32,13 @@ class ApiRequestAction extends Action
             return false;
         }
         if ($options['type'] === 'full') {
-            $apiRequestResponder->full($record);
+            $apiRequestResponder->set('record', $record);
+            $apiRequestResponder->full();
         } else {
-            $apiRequestResponder->short($record, $options['lang']);
+            $recordDomain = new RecordDomain($this->app);
+            $recordShort = $recordDomain->shortenRecord($record, $options['lang']);
+            $apiRequestResponder->set('record', $recordShort);
+            $apiRequestResponder->short();
         }
         return true;
     }
