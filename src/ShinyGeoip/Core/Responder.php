@@ -22,4 +22,21 @@ class Responder extends View
         require $templatePathname;
         return ob_get_clean();
     }
+
+    /**
+     * Sets header according to given output format.
+     *
+     * @param string $type
+     */
+    public function setContentTypeHeader($type)
+    {
+        switch($type) {
+            case 'json':
+                header('Content-Type: application/json', true);
+                break;
+            default:
+                // default is html..
+                break;
+        }
+    }
 }
