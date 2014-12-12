@@ -1,8 +1,10 @@
-<?php namespace ShinyGeoip\Core;
+<?php
+namespace ShinyGeoip\Core;
 
+use GeoIp2\Database\Reader;
 use Slim\Slim;
 
-class Action
+class Domain
 {
     /**
      * @var Slim $app
@@ -10,7 +12,7 @@ class Action
     protected $app;
 
     /**
-     * Injects slim object into actions.
+     * Injects slim object into domains.
      *
      * @param Slim $app
      */

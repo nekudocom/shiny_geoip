@@ -12,7 +12,7 @@ class ShowHomepageAction extends Action
     public function __invoke()
     {
         $reader = new Reader($this->app->pathCityDb);
-        $record = $reader->city($_SERVER['REMOTE_ADDR']);
+        $record = $reader->city('87.79.99.25');
         $responder = new ShowHomepageResponder;
         $responder->set('record', $record);
         $responder->home();
