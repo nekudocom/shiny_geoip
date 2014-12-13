@@ -1,8 +1,9 @@
 <?php namespace ShinyGeoip\Action;
 
 use ShinyGeoip\Core\Action;
+use ShinyGeoip\Domain\CityDbDomain;
+use ShinyGeoip\Domain\RecordDomain;
 use ShinyGeoip\Responder\ShowHomepageResponder;
-use GeoIp2\Database\Reader;
 
 class ShowHomepageAction extends Action
 {
@@ -11,10 +12,12 @@ class ShowHomepageAction extends Action
      */
     public function __invoke()
     {
-        $reader = new Reader($this->app->pathCityDb);
-        $record = $reader->city('87.79.99.25');
+        $cityDbDomain = new CityDbDomain($this->app);
+        $recordDomain = new RecordDomain($this->app);
+        $record = $cityDbDomain->getRecord($_SERVER['REMOTE_ADDR']);
+        $recordShort = $recordDomain->shortenRecord($record, $this->app->defaultLang);
         $responder = new ShowHomepageResponder;
-        $responder->set('record', $record);
+        $responder->set('record', $recordShort);
         $responder->home();
     }
 }
