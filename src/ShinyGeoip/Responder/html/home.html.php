@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Free IP to geolocation API. An open-source project by nekudo.com.">
     <title>geoip.nekudo.com | Free IP to geolocation API</title>
     <link rel="stylesheet" href="/css/base.min.css">
     <link rel="stylesheet" href="/css/general.css">
