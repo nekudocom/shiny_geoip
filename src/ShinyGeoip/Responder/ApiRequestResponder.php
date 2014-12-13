@@ -13,6 +13,7 @@ class ApiRequestResponder extends Responder
         $this->setContentTypeHeader('json');
         $record = $this->get('record');
         echo json_encode($record);
+        exit;
     }
 
     /**
@@ -23,6 +24,7 @@ class ApiRequestResponder extends Responder
         $this->setContentTypeHeader('json');
         $record = $this->get('record')->jsonSerialize();
         echo json_encode($record);
+        exit;
     }
 
     /**
@@ -32,5 +34,6 @@ class ApiRequestResponder extends Responder
     {
         $this->setContentTypeHeader('json');
         echo json_encode(['type' => 'error', 'msg' => 'No record found.']);
+        exit;
     }
 }
