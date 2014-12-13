@@ -1,13 +1,14 @@
 <?php
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require_once '../vendor/autoload.php';
 
 $app = new \Slim\Slim;
+$app->config('debug', false);
 
 // Set path to GeoLite city database:
 $app->pathCityDb = __DIR__ . '/../data/GeoLite2-City.mmdb';
+
+// Set fallback language
+$app->defaultLang = 'en';
 
 // Home route
 $app->get(

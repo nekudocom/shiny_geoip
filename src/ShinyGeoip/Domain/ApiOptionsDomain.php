@@ -15,7 +15,7 @@ class ApiOptionsDomain extends Domain
     {
         $options = [];
         $options['type'] = (in_array('full', $optionsInput)) ? 'full' : 'short';
-        $options['lang'] = 'en';
+        $options['lang'] = $this->app->defaultLang;
         foreach ($optionsInput as $possibleLang) {
             if (preg_match('/[a-z]{2}/', $possibleLang) === 1) {
                 $options['lang'] = $possibleLang;
