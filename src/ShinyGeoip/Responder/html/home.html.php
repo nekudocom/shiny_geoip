@@ -33,7 +33,7 @@
                     </a>
                 </p>
             </div>
-            <div class="col col-4 tablet-col-4 mobile-col-1-2">
+            <div class="col col-5 tablet-col-5 mobile-col-1-2">
 
                 <table>
                     <caption><h4>Your geolocation data</h4></caption>
