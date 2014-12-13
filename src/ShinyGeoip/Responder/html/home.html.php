@@ -83,7 +83,7 @@
                 <h2>The API</h2>
                 <p>
                     All requests have to be HTTP GET requests. The response will be a JSON encoded string.
-                    The API accecpts request in the following shema:
+                    The API accepts requests in the following schema:
                 </p>
                 <pre>http://geoip.nekudo.com/api/{ip}/{language}/{type}</pre>
                 <h4>Parameters</h4>
@@ -93,8 +93,8 @@
                     all available data (full) or just the most relevant data (short). Short is the default.
                 </p>
                 <p>
-                    <strong>Language:</strong> The language can be a two characeter language code like <em>en</em> or
-                    <em>de</em>. If available the response data will be in this language. This parameter is only
+                    <strong>Language:</strong> The language can be a two character language code like <em>en</em> or
+                    <em>de</em>. The response data will be in this language (if available). This parameter is only
                     reasonable in short mode as full mode contains all available languages.
                 </p>
 
