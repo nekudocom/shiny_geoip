@@ -23,7 +23,7 @@
             <div class="col col-7 tablet-col-7 mobile-col-1-2">
                 <p>
                     <strong>geoip.nekudo.com</strong> provides a free and easy to use API to get geolocation data for
-                    IP addresses.
+                    IP addresses. IPv4 and IPv6 formats are supported.
                 </p>
                 <p>
                     The whole project is free and open-source. You can setup your own copy if you like.
@@ -101,6 +101,7 @@
 
                 <h4>Examples</h4>
                 <pre>http://geoip.nekudo.com/api/8.8.8.8</pre>
+                <pre>http://geoip.nekudo.com/api/2a00:a200:0:f::888</pre>
                 <pre>http://geoip.nekudo.com/api/8.8.8.8/full</pre>
                 <pre>http://geoip.nekudo.com/api/87.79.99.25/de</pre>
 
