@@ -117,7 +117,7 @@
         <p class="text-center">
             This product includes GeoLite2 data created by MaxMind, available from
             <a href="http://www.maxmind.com">http://www.maxmind.com</a>.<br />
-            This website is another shiny project of <a href="https://nekudo.com">nekudo.com</a>.
+            This website is another shiny project by <a href="https://nekudo.com">nekudo.com</a>.
         </p>
     </footer>
 </div>
