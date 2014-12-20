@@ -1,0 +1,2 @@
+Put GeoIP2 database into this folder.
+The folder can be changed in the www/index.php file.
