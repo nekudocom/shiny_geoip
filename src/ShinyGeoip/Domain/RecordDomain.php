@@ -102,6 +102,14 @@ class RecordDomain extends Domain
         if (empty($values)) {
             return false;
         }
+        // map some language codes:
+        $language = strtr(
+            $language,
+            [
+                'pt' => 'pt-BR',
+                'zh' => 'zh-CN',
+            ]
+        );
         if (!empty($values[$language])) {
             return $values[$language];
         }
