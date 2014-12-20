@@ -74,6 +74,9 @@
                                 </td>
                             </tr>
                         <?php endif; ?>
+                        <?php if (empty($record)): ?>
+                            <tr><td><em>No record found.</em></td></tr>
+                        <?php endif; ?>
                     </tbody>
                 </table>
             </div>

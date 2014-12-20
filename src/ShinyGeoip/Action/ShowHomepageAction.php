@@ -15,7 +15,10 @@ class ShowHomepageAction extends Action
         $cityDbDomain = new CityDbDomain($this->app);
         $recordDomain = new RecordDomain($this->app);
         $record = $cityDbDomain->getRecord($_SERVER['REMOTE_ADDR']);
-        $recordShort = $recordDomain->shortenRecord($record, $this->app->defaultLang);
+        $recordShort = [];
+        if (!empty($record)) {
+            $recordShort = $recordDomain->shortenRecord($record, $this->app->defaultLang);
+        }
         $responder = new ShowHomepageResponder;
         $responder->set('record', $recordShort);
         $responder->home();
