@@ -26,7 +26,7 @@ class ApiRequestAction extends Action
         $options = $apiOptionsDomain->parseOptions($optionsInput);
 
         // handle response:
-        $apiRequestResponder = new ApiRequestResponder;
+        $apiRequestResponder = new ApiRequestResponder($this->app);
         if (empty($record)) {
             $apiRequestResponder->notFound();
             return false;

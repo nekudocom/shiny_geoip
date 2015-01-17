@@ -1,11 +1,13 @@
 ShinyGeoip
 =====
 
-ShinyGeoip is a simple HTTP API to request geolocation data for an IP addresses.
-It uses the [Maxmind GeoLite2 Database](http://dev.maxmind.com/geoip/geoip2/geolite2/).
+This API contains the sourcecode of the [geoip.nekudo.com](http://geoip.nekudo.com) website. It is a HTTP API to
+request geolocation data of IP addresses. Responses can be in JSON or JSONP format.
+The API is based on the [Maxmind GeoLite2 Database](http://dev.maxmind.com/geoip/geoip2/geolite2/).
 
-## Demo
-A live version of the API can be found at: [geoip.nekudo.com](http://geoip.nekudo.com)
+## Demo/Examples
+The live version of the API can be found at: [geoip.nekudo.com](http://geoip.nekudo.com)
+Here you will also find request examples.
  
 ## Requirements
 To run your own copy of ShinyGeoip all you'll need is a webserver that supports PHP and URL rewriting.

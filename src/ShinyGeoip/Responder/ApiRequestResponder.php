@@ -6,25 +6,37 @@ use ShinyGeoip\Core\Responder;
 class ApiRequestResponder extends Responder
 {
     /**
-     * Echos short version of record as json encodes string.
+     * Echos short version of record as json or jsonp string.
      */
     public function short()
     {
-        $this->setContentTypeHeader('json');
+        $callback = $this->app->request->get('callback', '');
         $record = $this->get('record');
-        echo json_encode($record);
-        exit;
+        $record = json_encode($record);
+        if (!empty($callback)) {
+            $this->setContentTypeHeader('javascript');
+            $record = $callback . '(' . $record . ');';
+        } else {
+            $this->setContentTypeHeader('json');
+        }
+        $this->setContent($record);
     }
 
     /**
-     * Echos the full record as json encoded string.
+     * Echos the full record as json or jsonp string.
      */
     public function full()
     {
-        $this->setContentTypeHeader('json');
+        $callback = $this->app->request->get('callback', '');
         $record = $this->get('record')->jsonSerialize();
-        echo json_encode($record);
-        exit;
+        $record = json_encode($record);
+        if (!empty($callback)) {
+            $this->setContentTypeHeader('javascript');
+            $record = $callback . '(' . $record . ');';
+        } else {
+            $this->setContentTypeHeader('json');
+        }
+        $this->setContent($record);
     }
 
     /**
@@ -33,7 +45,6 @@ class ApiRequestResponder extends Responder
     public function notFound()
     {
         $this->setContentTypeHeader('json');
-        echo json_encode(['type' => 'error', 'msg' => 'No record found.']);
-        exit;
+        $this->setContent(json_encode(['type' => 'error', 'msg' => 'No record found.']));
     }
 }

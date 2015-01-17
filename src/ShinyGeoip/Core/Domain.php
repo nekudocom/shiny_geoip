@@ -1,7 +1,6 @@
 <?php
 namespace ShinyGeoip\Core;
 
-use GeoIp2\Database\Reader;
 use Slim\Slim;
 
 class Domain

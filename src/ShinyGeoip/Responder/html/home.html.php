@@ -101,12 +101,26 @@
                     <em>de</em>. The response data will be in this language (if available). This parameter is only
                     reasonable in short mode as full mode contains all available languages.
                 </p>
+                <p>
+                    <strong>Callback:</strong> The API supports JSONP. To get a padded json response just add
+                    <em>?callback=functionname</em> to your request.
+                </p>
 
                 <h4>Examples</h4>
                 <pre>http://geoip.nekudo.com/api/8.8.8.8</pre>
                 <pre>http://geoip.nekudo.com/api/2a00:a200:0:f::888</pre>
                 <pre>http://geoip.nekudo.com/api/8.8.8.8/full</pre>
                 <pre>http://geoip.nekudo.com/api/87.79.99.25/de</pre>
+                <pre>
+&lt;script&gt;
+    function foo(data){
+        console.log(&quot;City: &quot;, data.city);
+        console.log(&quot;Country: &quot;, data.country.name);
+        console.log(&quot;Latitude: &quot;, data.location.latitude);
+        console.log(&quot;Longitude: &quot;, data.location.longitude);
+    }
+&lt;/script&gt;
+&lt;script src=&quot;http://geoip.nekudo.com/api/87.79.99.25?callback=foo&quot;&gt;&lt;/script&gt;</pre>
 
                 <h4>Limits</h4>
                 <p>The API follows a fair use policy. There are no limits by default but if the service is abused

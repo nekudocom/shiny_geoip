@@ -1,12 +1,19 @@
 <?php namespace ShinyGeoip\Core;
 
+use Slim\Slim;
 use Slim\View;
 
 class Responder extends View
 {
-    public function __construct()
+    /**
+     * @var Slim $app
+     */
+    protected $app;
+
+    public function __construct(Slim $app)
     {
         parent::__construct();
+        $this->app = $app;
         $this->setTemplatesDirectory(__DIR__ . '/../Responder/html');
     }
 
@@ -32,11 +39,24 @@ class Responder extends View
     {
         switch($type) {
             case 'json':
-                header('Content-Type: application/json', true);
+                $this->app->response->headers->set('Content-Type', 'application/json');
+                break;
+            case 'javascript':
+                $this->app->response->headers->set('Content-Type', 'application/javascript');
                 break;
             default:
                 // default is html..
                 break;
         }
+    }
+
+    /**
+     * Sets response body.
+     *
+     * @param string $content
+     */
+    public function setContent($content)
+    {
+        $this->app->response->setBody($content);
     }
 }

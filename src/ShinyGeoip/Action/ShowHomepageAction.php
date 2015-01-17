@@ -19,7 +19,7 @@ class ShowHomepageAction extends Action
         if (!empty($record)) {
             $recordShort = $recordDomain->shortenRecord($record, $this->app->defaultLang);
         }
-        $responder = new ShowHomepageResponder;
+        $responder = new ShowHomepageResponder($this->app);
         $responder->set('record', $recordShort);
         $responder->home();
     }
