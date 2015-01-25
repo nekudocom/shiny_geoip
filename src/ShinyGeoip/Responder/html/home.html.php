@@ -3,10 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free IP to geolocation API. An open-source project by nekudo.com.">
-    <title>geoip.nekudo.com | Free IP to geolocation API</title>
+    <meta name="description" content="Free IP geolocation API. An open-source project by nekudo.com.">
+    <title>geoip.nekudo.com | Free IP geolocation API</title>
     <link rel="stylesheet" href="/css/base.min.css">
-    <link rel="stylesheet" href="/css/general.css">
 </head>
 <body>
 
@@ -14,7 +13,7 @@
     <header>
         <div class="clear row">
             <h1>geoip.nekudo.com</h1>
-            <h2 class="h4">Free IP to geolocation API.</h2>
+            <h2 class="h4">Free IP geolocation API.</h2>
         </div>
     </header>
 
@@ -22,11 +21,11 @@
         <div class="row clear">
             <div class="col col-7 tablet-col-7 mobile-col-1-2">
                 <p>
-                    <strong>geoip.nekudo.com</strong> provides a free and easy to use API to get geolocation data for
+                    <strong>geoip.nekudo.com</strong> provides a free and easy to use API to get location data for
                     IP addresses. IPv4 and IPv6 formats are supported.
                 </p>
                 <p>
-                    The whole project is free and open-source. You can setup your own copy if you like.
+                    The whole project is free and open-source. You can easily setup your instance if you like.
                 </p>
                 <p>
                     <a href="https://github.com/nekudo/shiny_geoip" class="button grey-button">
@@ -125,16 +124,18 @@
                 <h4>Limits</h4>
                 <p>The API follows a fair use policy. There are no limits by default but if the service is abused
                 your IP may get blocked. In case you need to do a massive amount of requests please contact us or
-                setup your own copy of the ShinyGeoip API.</p>
+                setup your own instance of the ShinyGeoip API.</p>
             </div>
         </div>
     </div>
 
     <footer>
         <p class="text-center">
-            This product includes GeoLite2 data created by MaxMind, available from
-            <a href="http://www.maxmind.com">http://www.maxmind.com</a>.<br />
-            This website is another shiny project by <a href="https://nekudo.com">nekudo.com</a>.
+            <small>
+                This product includes GeoLite2 data created by MaxMind, available from
+                <a href="http://www.maxmind.com">http://www.maxmind.com</a>.<br />
+                This website is another shiny project by <a href="https://nekudo.com">nekudo.com</a>.
+            </small>
         </p>
     </footer>
 </div>

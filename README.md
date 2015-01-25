@@ -1,16 +1,16 @@
 ShinyGeoip
 =====
 
-This API contains the sourcecode of the [geoip.nekudo.com](http://geoip.nekudo.com) website. It is a HTTP API to
-request geolocation data of IP addresses. Responses can be in JSON or JSONP format.
+This API contains the sourcecode of the [geoip.nekudo.com](http://geoip.nekudo.com) website. It is an HTTP API to
+request location data for IP addresses. Responses can be in JSON or JSONP format.
 The API is based on the [Maxmind GeoLite2 Database](http://dev.maxmind.com/geoip/geoip2/geolite2/).
 
 ## Demo/Examples
-The live version of the API can be found at: [geoip.nekudo.com](http://geoip.nekudo.com)
-Here you will also find request examples.
+The live version of this API can be found at: [geoip.nekudo.com](http://geoip.nekudo.com)
+Here you will also find example requests.
  
 ## Requirements
-To run your own copy of ShinyGeoip all you'll need is a webserver that supports PHP and URL rewriting.
+To run your own instance of ShinyGeoip all you'll need is a webserver that supports PHP and URL rewriting.
 
 ## Installation
 To setup you own API follow the following steps:
@@ -29,5 +29,5 @@ You should now have your own instance up and running.
 * Maxmind provides a [http://maxmind.github.io/GeoIP2-php/](PHP extension) which is a drop-in replacement for the
 PHP based database reader. Using this extension brings an enormous performance boost and you should use this extension
 whenever possible.
-* You may want to adjust the homepage tempalate in ```src/Responder/html/home.html.php``` with your own domain
+* You may want to adjust the homepage template in ```src/Responder/html/home.html.php``` with your own domain
 and texts.
