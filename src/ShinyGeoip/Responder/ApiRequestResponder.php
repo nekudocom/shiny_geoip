@@ -52,7 +52,6 @@ class ApiRequestResponder extends Responder
         } else {
             $this->setContentTypeHeader('json');
         }
-        $this->setContentTypeHeader('json');
         $this->setContent($response);
     }
 }
