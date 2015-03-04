@@ -44,7 +44,15 @@ class ApiRequestResponder extends Responder
      */
     public function notFound()
     {
+        $callback = $this->app->request->get('callback', '');
+        $response = json_encode(['type' => 'error', 'msg' => 'No record found.']);
+        if (!empty($callback)) {
+            $this->setContentTypeHeader('javascript');
+            $response = $callback . '(' . $response . ');';
+        } else {
+            $this->setContentTypeHeader('json');
+        }
         $this->setContentTypeHeader('json');
-        $this->setContent(json_encode(['type' => 'error', 'msg' => 'No record found.']));
+        $this->setContent($response);
     }
 }
