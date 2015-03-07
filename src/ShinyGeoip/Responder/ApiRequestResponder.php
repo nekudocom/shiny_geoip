@@ -6,46 +6,41 @@ use ShinyGeoip\Core\Responder;
 class ApiRequestResponder extends Responder
 {
     /**
-     * Echos short version of record as json or jsonp string.
+     * Respond with short version of location record.
      */
     public function short()
     {
-        $callback = $this->app->request->get('callback', '');
         $record = $this->get('record');
-        $record = json_encode($record);
-        if (!empty($callback)) {
-            $this->setContentTypeHeader('javascript');
-            $record = $callback . '(' . $record . ');';
-        } else {
-            $this->setContentTypeHeader('json');
-        }
-        $this->setContent($record);
+        $this->setResponse($record);
     }
 
     /**
-     * Echos the full record as json or jsonp string.
+     * Respond with full version of location record.
      */
     public function full()
     {
-        $callback = $this->app->request->get('callback', '');
         $record = $this->get('record')->jsonSerialize();
-        $record = json_encode($record);
-        if (!empty($callback)) {
-            $this->setContentTypeHeader('javascript');
-            $record = $callback . '(' . $record . ');';
-        } else {
-            $this->setContentTypeHeader('json');
-        }
-        $this->setContent($record);
+        $this->setResponse($record);
     }
 
     /**
-     * Echos a json encoded not found error message.
+     * Respond with a not found message.
      */
     public function notFound()
     {
+        $response = ['type' => 'error', 'msg' => 'No record found.'];
+        $this->setResponse($response);
+    }
+
+    /**
+     * Sets response-body depending on request as json or jsonp string and sets matching http header.
+     *
+     * @param array $response
+     */
+    protected function setResponse(array $response)
+    {
         $callback = $this->app->request->get('callback', '');
-        $response = json_encode(['type' => 'error', 'msg' => 'No record found.']);
+        $response = json_encode($response);
         if (!empty($callback)) {
             $this->setContentTypeHeader('javascript');
             $response = $callback . '(' . $response . ');';
