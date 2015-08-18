@@ -12,3 +12,6 @@
 # Composer
 vendor
 composer.lock
+
+# Geo Database
+**.mmdb
