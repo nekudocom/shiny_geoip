@@ -3,134 +3,143 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Free IP geolocation API. An open-source project by nekudo.com.">
-    <title>geoip.nekudo.com | Free IP geolocation API</title>
-    <link rel="stylesheet" href="/css/base.min.css">
+    <meta name="description" content="Free GeoIP/Geolocation REST API. An open-source project by nekudo.com.">
+    <title>Free IP GeoLocation/GeoIp API - geoip.nekudo.com</title>
+    <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
 
 <div class="container">
+
     <header>
-        <div class="clear row">
-            <h1>geoip.nekudo.com</h1>
-            <h2 class="h4">Free IP geolocation API.</h2>
-        </div>
+        <h1>Free IP GeoLocation/GeoIp API</h1>
+        <p class="h2">A free REST API to get location information for IP addresses.</p>
     </header>
 
-    <div class="content">
-        <div class="row clear">
-            <div class="col col-7 tablet-col-7 mobile-col-1-2">
-                <p>
-                    <strong>geoip.nekudo.com</strong> provides a free and easy to use API to get location data for
-                    IP addresses. IPv4 and IPv6 formats are supported.
-                </p>
-                <p>
-                    The whole project is free and open-source. You can easily setup your instance if you like.
-                </p>
-                <p>
-                    <a href="https://github.com/nekudo/shiny_geoip" class="button grey-button">
-                        ShinyGeoip at GitHub
-                    </a>
-                </p>
-            </div>
-            <div class="col col-5 tablet-col-5 mobile-col-1-2">
 
-                <table>
-                    <caption><h4>Your geolocation data</h4></caption>
-                    <tbody>
-                        <?php if (!empty($record['city'])): ?>
-                            <tr>
-                                <td><b>City</b></td>
-                                <td><?php echo htmlspecialchars($record['city']); ?></td>
-                            </tr>
-                        <?php endif; ?>
-                        <?php if (!empty($record['country'])): ?>
-                            <tr>
-                                <td><b>Country</b></td>
-                                <td>
-                                    <?php echo htmlspecialchars($record['country']['name']); ?>
-                                    (<?php echo htmlspecialchars($record['country']['code']); ?>)
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                        <?php if (!empty($record['location'])): ?>
-                            <tr>
-                                <td><b>Latitute</b></td>
-                                <td>
-                                    <?php echo htmlspecialchars($record['location']['latitude']); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Longitude</b></td>
-                                <td>
-                                    <?php echo htmlspecialchars($record['location']['longitude']); ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><b>Time zone</b></td>
-                                <td>
-                                    <?php echo htmlspecialchars($record['location']['time_zone']); ?>
-                                </td>
-                            </tr>
-                        <?php endif; ?>
-                        <?php if (empty($record)): ?>
-                            <tr><td><em>No record found.</em></td></tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-            </div>
+    <div class="clearfix">
+        <div class="left">
+            <p>
+                This project is open source. Setup your own instance if you like.
+            </p>
+            <p>
+                <a href="https://github.com/nekudo/shiny_geoip" class="btn">
+                    Sourcecode at GitHub
+                </a>
+            </p>
         </div>
 
-        <div class="row clear">
-            <div class="col col-12 tablet-full mobile-full">
-                <h2>The API</h2>
-                <p>
-                    All requests have to be HTTP GET requests. The response will be a JSON encoded string.
-                    The API accepts requests in the following schema:
-                </p>
-                <pre>http://geoip.nekudo.com/api/{ip}/{language}/{type}</pre>
-                <h4>Parameters</h4>
-                <p>There are two parameters <em>type</em> and <em>language</em>. Both parameters are optional.</p>
-                <p>
-                    <strong>Type:</strong> Can be <em>short</em> or <em>full</em> and defines if the API returns
-                    all available data (full) or just the most relevant data (short). Short is the default.
-                </p>
-                <p>
-                    <strong>Language:</strong> The language can be a two character language code like <em>en</em> or
-                    <em>de</em>. The response data will be in this language (if available). This parameter is only
-                    reasonable in short mode as full mode contains all available languages.
-                </p>
-                <p>
-                    <strong>Callback:</strong> The API supports JSONP. To get a padded json response just add
-                    <em>?callback=functionname</em> to your request.
-                </p>
+        <div class="right">
+            <table class="bordered">
+                <caption align="bottom">Location data for your current IP address</caption>
+                <tbody>
+                    <?php if (!empty($record['city'])): ?>
+                        <tr>
+                            <td>City</td>
+                            <td><?php echo htmlspecialchars($record['city']); ?></td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if (!empty($record['country'])): ?>
+                        <tr>
+                            <td>Country</td>
+                            <td>
+                                <?php echo htmlspecialchars($record['country']['name']); ?>
+                                (<?php echo htmlspecialchars($record['country']['code']); ?>)
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if (!empty($record['location'])): ?>
+                        <tr>
+                            <td>Latitute</td>
+                            <td>
+                                <?php echo htmlspecialchars($record['location']['latitude']); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Longitude</td>
+                            <td>
+                                <?php echo htmlspecialchars($record['location']['longitude']); ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Time zone</td>
+                            <td>
+                                <?php echo htmlspecialchars($record['location']['time_zone']); ?>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+                    <?php if (empty($record)): ?>
+                        <tr><td><em>No record found.</em></td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
 
-                <h4>Examples</h4>
-                <pre>http://geoip.nekudo.com/api/8.8.8.8</pre>
-                <pre>http://geoip.nekudo.com/api/2a00:a200:0:f::888</pre>
-                <pre>http://geoip.nekudo.com/api/8.8.8.8/full</pre>
-                <pre>http://geoip.nekudo.com/api/87.79.99.25/de</pre>
-                <pre>
-&lt;script&gt;
-    function foo(data){
-        console.log(&quot;City: &quot;, data.city);
-        console.log(&quot;Country: &quot;, data.country.name);
-        console.log(&quot;Latitude: &quot;, data.location.latitude);
-        console.log(&quot;Longitude: &quot;, data.location.longitude);
-    }
-&lt;/script&gt;
-&lt;script src=&quot;http://geoip.nekudo.com/api/87.79.99.25?callback=foo&quot;&gt;&lt;/script&gt;</pre>
-
-                <h4>Limits</h4>
-                <p>The API follows a fair use policy. There are no limits by default but if the service is abused
-                your IP may get blocked. In case you need to do a massive amount of requests please contact us or
-                setup your own instance of the ShinyGeoip API.</p>
-            </div>
         </div>
     </div>
 
+    <div class="mt-60">
+        <h3>API Documentation</h3>
+
+        <h4>Requests</h4>
+        <p>
+            All requests have to be HTTP GET requests in the following schema:
+        </p>
+        <pre>http://geoip.nekudo.com/api/{ip}/{language}/{type}</pre>
+
+        <h4>Parameters</h4>
+        <table>
+            <tbody>
+            <tr>
+                <td class="param-name">ip</td>
+                <td class="param-required">required</td>
+                <td>Valid IP address in IPv4 or IPv6 format.</td>
+            </tr>
+            <tr>
+                <td class="param-name">language</td>
+                <td class="param-required">optional</td>
+                <td>Two character language code like <em>en</em> or <em>de</em>.</td>
+            </tr>
+            <tr>
+                <td class="param-name">type</td>
+                <td class="param-required">optional</td>
+                <td>
+                    Possible values are <em>short</em> to get a response conataining only most relevant data or
+                    <em>full</em> to get a response containing all available data.
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <h4>Responses</h4>
+        <p class="textblock">
+            By default all responses are JSON encoded strings.<br />
+            It is also possible to get JSONP responses for direct usage in javascripts. To get a JSONP response
+            a callback function has to be provided within the request using the <em>?callback=</em> parameter.
+        </p>
+
+        <h4>Examples</h4>
+        <pre>http://geoip.nekudo.com/api/8.8.8.8</pre>
+        <pre>http://geoip.nekudo.com/api/2a00:a200:0:f::888</pre>
+        <pre>http://geoip.nekudo.com/api/8.8.8.8/full</pre>
+        <pre>http://geoip.nekudo.com/api/87.79.99.25/de</pre>
+        <pre>
+&lt;script&gt;
+function foo(data) {
+    console.log(&quot;City: &quot;, data.city);
+    console.log(&quot;Country: &quot;, data.country.name);
+    console.log(&quot;Latitude: &quot;, data.location.latitude);
+    console.log(&quot;Longitude: &quot;, data.location.longitude);
+}
+&lt;/script&gt;
+&lt;script src=&quot;http://geoip.nekudo.com/api/87.79.99.25?callback=foo&quot;&gt;&lt;/script&gt;</pre>
+
+        <h4>Limits</h4>
+        <p class="textblock">The API follows a fair use policy. There are no limits by default but if the service is abused
+        your IP may get blocked.</p>
+    </div>
+
     <footer>
-        <p class="text-center">
+        <p>
             <small>
                 This product includes GeoLite2 data created by MaxMind, available from
                 <a href="http://www.maxmind.com">http://www.maxmind.com</a>.<br />
@@ -138,7 +147,9 @@
             </small>
         </p>
     </footer>
+
 </div>
+
 
 </body>
 </html>

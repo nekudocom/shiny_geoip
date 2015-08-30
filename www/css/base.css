@@ -1,0 +1,26 @@
+/** Typo **/
+body { font-family: sans-serif; }
+.h2 { font-size: 1.2em; }
+.textblock { line-height: 1.5; }
+
+/** Structure **/
+.container { max-width: 1024px; margin-left: auto; margin-right: auto; }
+.clearfix:before, .clearfix:after { content: " "; display: table; }
+.clearfix:after { clear: both; }
+.left {	float: left; }
+.right { float: right; width: 30%; }
+
+/** Styling **/
+a {	color: #0099dd;	text-decoration: none; }
+a:hover { text-decoration: underline; }
+.btn { color: #fff; background-color: #09d;	border-radius: 3px;	padding: 8px 16px; text-decoration: none; }
+.btn:hover { box-shadow: inset 0 0 0 20rem rgba(0,0,0,.0625); text-decoration: none; }
+.mt-60 { margin-top: 60px; }
+header { text-align: center; padding-top: 30px; padding-bottom: 60px; }
+footer { text-align: center; padding-top: 30px; }
+table { width: 100%; border: 1px solid #aaa; border-radius: 3px; font-size: 0.9em; }
+table td { padding-top: 3px; padding-bottom: 3px; }
+table caption { font-size: 0.8em; padding-top: 3px; }
+td.param-name { font-weight: bold; padding-right: 15px; }
+td.param-required { font-style: italic; padding-right: 15px; }
+pre { padding: 3px; border-radius: 2px; background-color: #ddd; }
