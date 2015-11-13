@@ -21,6 +21,19 @@ $app->get(
 
 // API route
 $app->get(
+    '/api(/:ip)',
+    function ($ip = null, $options = []) use ($app) {
+        $ip = ($ip === null) ? $_SERVER['REMOTE_ADDR'] : $ip;
+        $ip = '87.79.99.25';
+        $apiRequestAction = new \ShinyGeoip\Action\ApiRequestAction($app);
+        $apiRequestAction->__invoke($ip, $options);
+    }
+)->conditions(
+    [
+        'ip' => '[0-9a-f.:]{6,45}',
+    ]
+);
+$app->get(
     '/api/:ip(/:options+)',
     function ($ip, $options = []) use ($app) {
         $apiRequestAction = new \ShinyGeoip\Action\ApiRequestAction($app);

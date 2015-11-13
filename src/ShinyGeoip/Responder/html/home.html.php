@@ -91,17 +91,17 @@
             <tbody>
             <tr>
                 <td class="param-name">ip</td>
-                <td class="param-required">required</td>
+                <td class="param-required">optional</td>
                 <td>Valid IP address in IPv4 or IPv6 format.</td>
             </tr>
             <tr>
                 <td class="param-name">language</td>
-                <td class="param-required">optional</td>
+                <td class="param-required">optional*</td>
                 <td>Two character language code like <em>en</em> or <em>de</em>.</td>
             </tr>
             <tr>
                 <td class="param-name">type</td>
-                <td class="param-required">optional</td>
+                <td class="param-required">optional*</td>
                 <td>
                     Possible values are <em>short</em> to get a response conataining only most relevant data or
                     <em>full</em> to get a response containing all available data.
@@ -109,6 +109,7 @@
             </tr>
             </tbody>
         </table>
+        <small>* This parameter can only be used if IP parameter is provided.</small>
 
         <h4>Responses</h4>
         <p class="textblock">
@@ -125,13 +126,13 @@
         <pre>
 &lt;script&gt;
 function foo(data) {
-    console.log(&quot;City: &quot;, data.city);
-    console.log(&quot;Country: &quot;, data.country.name);
-    console.log(&quot;Latitude: &quot;, data.location.latitude);
-    console.log(&quot;Longitude: &quot;, data.location.longitude);
+    document.write(&quot;City: &quot;, data.city);
+    document.write(&quot;Country: &quot;, data.country.name);
+    document.write(&quot;Latitude: &quot;, data.location.latitude);
+    document.write(&quot;Longitude: &quot;, data.location.longitude);
 }
 &lt;/script&gt;
-&lt;script src=&quot;http://geoip.nekudo.com/api/87.79.99.25?callback=foo&quot;&gt;&lt;/script&gt;</pre>
+&lt;script src=&quot;http://geoip.nekudo.com/api?callback=foo&quot;&gt;&lt;/script&gt;</pre>
 
         <h4>Limits</h4>
         <p class="textblock">The API follows a fair use policy. There are no limits by default but if the service is abused
