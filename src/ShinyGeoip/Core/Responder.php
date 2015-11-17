@@ -37,6 +37,7 @@ class Responder extends View
      */
     public function setContentTypeHeader($type)
     {
+
         switch($type) {
             case 'json':
                 $this->app->response->headers->set('Content-Type', 'application/json');
@@ -48,6 +49,7 @@ class Responder extends View
                 // default is html..
                 break;
         }
+        $this->app->response->headers->set('Access-Control-Allow-Origin', '*');
     }
 
     /**
