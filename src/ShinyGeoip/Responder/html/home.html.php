@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Free GeoIP/Geolocation REST API. An open-source project by nekudo.com.">
     <title>Free IP GeoLocation/GeoIp API - geoip.nekudo.com</title>
+    <link rel="canonical" href="http://geoip.nekudo.com">
     <link rel="stylesheet" href="/css/base.css">
 </head>
 <body>
@@ -133,6 +134,9 @@ function foo(data) {
 }
 &lt;/script&gt;
 &lt;script src=&quot;http://geoip.nekudo.com/api?callback=foo&quot;&gt;&lt;/script&gt;</pre>
+
+        <h4>SSL</h4>
+        <p class="textblock">This service is also available via <a href="https://geoip.nekudo.com">https</a>.</p>
 
         <h4>Limits</h4>
         <p class="textblock">The API follows a fair use policy. There are no limits by default but if the service is abused
