@@ -1,19 +1,21 @@
 <?php
-require_once __DIR__ . '/../src/bootstrap.php';
 
-$reader = new \MaxMind\Db\Reader(__DIR__ . '/../data/GeoLite2-City.mmdb');
-$count = 40000;
+require_once '../vendor/autoload.php';
+
+use MaxMind\Db\Reader;
+
+$reader = new Reader('GeoIP2-City.mmdb');
+$count = 10000;
 $startTime = microtime(true);
 for ($i = 0; $i < $count; $i++) {
     $ip = long2ip(rand(0, pow(2, 32) -1));
-    try {
-        $t = $reader->get($ip);
-    } catch (Exception $e) {
-    }
+    $t = $reader->get($ip);
     if ($i % 1000 == 0) {
         print($i . ' ' . $ip . "\n");
+        // print_r($t);
     }
 }
 $endTime = microtime(true);
+
 $duration = $endTime - $startTime;
 print('Requests per second: ' . $count / $duration . "\n");
