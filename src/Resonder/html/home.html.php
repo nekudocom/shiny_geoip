@@ -97,12 +97,12 @@
             </tr>
             <tr>
                 <td class="param-name">language</td>
-                <td class="param-required">optional*</td>
+                <td class="param-required">optional</td>
                 <td>Two character language code like <em>en</em> or <em>de</em>.</td>
             </tr>
             <tr>
                 <td class="param-name">type</td>
-                <td class="param-required">optional*</td>
+                <td class="param-required">optional</td>
                 <td>
                     Possible values are <em>short</em> to get a response conataining only most relevant data or
                     <em>full</em> to get a response containing all available data.
@@ -110,7 +110,6 @@
             </tr>
             </tbody>
         </table>
-        <small>* This parameter can only be used if IP parameter is provided.</small>
 
         <h4>Responses</h4>
         <p class="textblock">
