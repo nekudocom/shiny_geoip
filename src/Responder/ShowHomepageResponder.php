@@ -10,7 +10,7 @@ class ShowHomepageResponder extends HttpResponder
     public function showHomepage(array $record)
     {
         ob_start();
-        require PROJECT_ROOT . '/src/Resonder/html/home.html.php';
+        require PROJECT_ROOT . '/src/Responder/html/home.html.php';
         $payload = ob_get_clean();
         $this->found($payload);
     }
