@@ -18,8 +18,12 @@ class ShowLocationAction
         $domain = new LocationDomain;
         $responder = new ShowLocationResponder;
 
-        // fetch record for requested ip (use client ip if no ip provied):
-        $ip = (!empty($arguments['ip'])) ? $arguments['ip'] : $_SERVER['REMOTE_ADDR'];
+        // fetch record for requested ip (use client ip if no ip provided):
+        $userIp = $_SERVER['REMOTE_ADDR'];
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $userIp = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        $ip = (!empty($arguments['ip'])) ? $arguments['ip'] : $userIp;
         $record = $domain->getRecord($ip);
 
         // set requested callback method for JSONP responses:

@@ -13,7 +13,11 @@ class ShowHomepageAction
     {
         // fetch location record for users ip to display on homepage:
         $domain = new LocationDomain;
-        $record = $domain->getRecord($_SERVER['REMOTE_ADDR']);
+        $userIp = $_SERVER['REMOTE_ADDR'];
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            $userIp = $_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        $record = $domain->getRecord($userIp);
         if (!empty($record)) {
             $record = $domain->shortenRecord($record, 'en');
         }
