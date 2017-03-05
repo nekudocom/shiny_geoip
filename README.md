@@ -29,7 +29,7 @@ whenever possible.
 
 ## Frequently Asked Questions
 
-##### I am getting an wrong/empty result for my IP - can you update the database?
+### I am getting an wrong/empty result for my IP - can you update the database?
 
 This project uses the GeoLite2 Database provided by Maxmind. If there is any error in this database you can [submit
 corrections directly to Maxmind](https://support.maxmind.com/correction-faq/). This project however has no influence
