@@ -78,12 +78,25 @@ class LocationDomain
                 ? $record['country']['names'][$lang]
                 : reset($record['country']['names']);
             $recordShort['country']['code'] = $record['country']['iso_code'];
+        } elseif (!empty($record['registered_country'])) {
+            $recordShort['country']['name'] = (isset($record['registered_country']['names'][$lang]))
+                ? $record['registered_country']['names'][$lang]
+                : reset($record['registered_country']['names']);
+            $recordShort['country']['code'] = $record['registered_country']['iso_code'];
         }
 
         // add location data to short record if available:
         if (!empty($record['location'])) {
             $recordShort['location'] = $record['location'];
             unset($recordShort['location']['metro_code']);
+        }
+
+        // convert empty arrays to objects for consistency:
+        if (empty($recordShort['country'])) {
+            $recordShort['country'] = (object) [];
+        }
+        if (empty($recordShort['location'])) {
+            $recordShort['location'] = (object) [];
         }
 
         return $recordShort;
