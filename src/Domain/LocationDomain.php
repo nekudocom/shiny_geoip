@@ -8,11 +8,13 @@ class LocationDomain
      * @var string $pathToLocationDb
      */
     protected $pathToLocationDb;
+	  protected $pathToASNDb;
 
     /**
      * @var Reader $reader
      */
-    protected $reader;
+    protected $locreader;
+	  protected $asnreader;
 
     /**
      * Init the GeoLite database reader.
@@ -20,11 +22,14 @@ class LocationDomain
     public function __construct()
     {
         $this->pathToLocationDb = PROJECT_ROOT . 'data/GeoLite2-City.mmdb';
-        $this->reader = new Reader($this->pathToLocationDb);
+        $this->locreader = new Reader($this->pathToLocationDb);
+
+		    $this->pathToASNDb = PROJECT_ROOT . 'data/GeoLite2-ASN.mmdb';
+        $this->asnreader = new Reader($this->pathToASNDb);
     }
 
     /**
-     * Fetches location record for given IP.
+     * Fetches location record and ASN data for given IP.
      *
      * @param string $ip
      * @return array
@@ -32,18 +37,34 @@ class LocationDomain
     public function getRecord($ip)
     {
         try {
-            $record = $this->reader->get($ip);
-            if (empty($record)) {
+            $recordloc = $this->locreader->get($ip);
+            if (empty($recordloc)) {
                 return [];
             }
 
             // attach IP to record (for compatibility to API v1):
-            $record['traits']['ip_address'] = $ip;
+            $recordloc['traits']['ip_address'] = $ip;
 
-            return $record;
+            //return $recordloc; HANDLED LATER
         } catch (\Exception $e) {
             return [];
         }
+
+		    try {
+            $recordasn = $this->asnreader->get($ip);
+            if (empty($recordasn)) {
+                return [];
+            }
+
+            //return $recordasn; HANDLED LATER
+        } catch (\Exception $e) {
+            return [];
+        }
+
+		    if($recordloc && $recordasn){
+			    $record = array_merge($recordloc,$recordasn);
+          return $record;
+		    }
     }
 
     /**
@@ -78,25 +99,12 @@ class LocationDomain
                 ? $record['country']['names'][$lang]
                 : reset($record['country']['names']);
             $recordShort['country']['code'] = $record['country']['iso_code'];
-        } elseif (!empty($record['registered_country'])) {
-            $recordShort['country']['name'] = (isset($record['registered_country']['names'][$lang]))
-                ? $record['registered_country']['names'][$lang]
-                : reset($record['registered_country']['names']);
-            $recordShort['country']['code'] = $record['registered_country']['iso_code'];
         }
 
         // add location data to short record if available:
         if (!empty($record['location'])) {
             $recordShort['location'] = $record['location'];
             unset($recordShort['location']['metro_code']);
-        }
-
-        // convert empty arrays to objects for consistency:
-        if (empty($recordShort['country'])) {
-            $recordShort['country'] = (object) [];
-        }
-        if (empty($recordShort['location'])) {
-            $recordShort['location'] = (object) [];
         }
 
         return $recordShort;
