@@ -8,28 +8,27 @@ class LocationDomain
      * @var string $pathToLocationDb
      */
     protected $pathToLocationDb;
-	  protected $pathToASNDb;
+    protected $pathToASNDb;
 
     /**
      * @var Reader $reader
      */
-    protected $locreader;
-	  protected $asnreader;
+    protected $reader;
 
     /**
      * Init the GeoLite database reader.
      */
     public function __construct()
     {
-        $this->pathToLocationDb = PROJECT_ROOT . 'data/GeoLite2-City.mmdb';
-        $this->locreader = new Reader($this->pathToLocationDb);
+      $this->pathToLocationDb = PROJECT_ROOT . 'data/GeoLite2-City.mmdb';
+      $this->locreader = new Reader($this->pathToLocationDb);
 
-		    $this->pathToASNDb = PROJECT_ROOT . 'data/GeoLite2-ASN.mmdb';
-        $this->asnreader = new Reader($this->pathToASNDb);
+      $this->pathToASNDb = PROJECT_ROOT . 'data/GeoLite2-ASN.mmdb';
+      $this->asnreader = new Reader($this->pathToASNDb);
     }
 
     /**
-     * Fetches location record and ASN data for given IP.
+     * Fetches location record for given IP.
      *
      * @param string $ip
      * @return array
@@ -50,7 +49,7 @@ class LocationDomain
             return [];
         }
 
-		    try {
+        try {
             $recordasn = $this->asnreader->get($ip);
             if (empty($recordasn)) {
                 return [];
@@ -61,7 +60,7 @@ class LocationDomain
             return [];
         }
 
-		    if($recordloc && $recordasn){
+        if($recordloc && $recordasn){
 			    $record = array_merge($recordloc,$recordasn);
           return $record;
 		    }
@@ -81,6 +80,7 @@ class LocationDomain
             'country' => [],
             'location' => [],
             'ip' => $record['traits']['ip_address'],
+            'isp' => $record['autonomous_system_organization'],
         ];
 
         // expand some language keys to match keys in database:
@@ -99,12 +99,30 @@ class LocationDomain
                 ? $record['country']['names'][$lang]
                 : reset($record['country']['names']);
             $recordShort['country']['code'] = $record['country']['iso_code'];
+        } elseif (!empty($record['registered_country'])) {
+            $recordShort['country']['name'] = (isset($record['registered_country']['names'][$lang]))
+                ? $record['registered_country']['names'][$lang]
+                : reset($record['registered_country']['names']);
+            $recordShort['country']['code'] = $record['registered_country']['iso_code'];
         }
 
         // add location data to short record if available:
         if (!empty($record['location'])) {
             $recordShort['location'] = $record['location'];
             unset($recordShort['location']['metro_code']);
+        }
+
+        // add isp information to short record if available
+        if (!empty($record['autonomous_system_organization'])) {
+            $recordShort['isp'] = $record['autonomous_system_organization'];
+        }
+
+        // convert empty arrays to objects for consistency:
+        if (empty($recordShort['country'])) {
+            $recordShort['country'] = (object) [];
+        }
+        if (empty($recordShort['location'])) {
+            $recordShort['location'] = (object) [];
         }
 
         return $recordShort;
