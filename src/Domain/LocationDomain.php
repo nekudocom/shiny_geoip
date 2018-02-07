@@ -13,6 +13,8 @@ class LocationDomain
     /**
      * @var Reader $reader
      */
+    protected $locreader;
+    protected $asnreader;
     protected $reader;
 
     /**
