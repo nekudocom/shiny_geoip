@@ -140,6 +140,13 @@ function foo(data) {
         <h4>Limits</h4>
         <p class="textblock">The API follows a fair use policy. There are no limits by default but if the service is abused
         your IP may get blocked.</p>
+
+        <h4>Support/Donate</h4>
+        <p class="textblock">
+            This API is totally free, however there are a few expenses to run the servers. In case you like this project
+            and use it regularly please consider
+            <a href="https://paypal.me/simonsamtleben">donating a small amount using PayPal.</a>
+        </p>
     </div>
 
     <footer>
