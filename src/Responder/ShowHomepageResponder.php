@@ -1,4 +1,8 @@
-<?php namespace Nekudo\ShinyGeoip\Responder;
+<?php
+
+declare(strict_types=1);
+
+namespace Nekudo\ShinyGeoip\Responder;
 
 class ShowHomepageResponder extends HttpResponder
 {

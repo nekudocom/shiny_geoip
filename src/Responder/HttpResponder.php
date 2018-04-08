@@ -1,4 +1,7 @@
 <?php
+
+declare(strict_types=1);
+
 namespace Nekudo\ShinyGeoip\Responder;
 
 class HttpResponder
@@ -28,7 +31,7 @@ class HttpResponder
      *
      * @param string $payload
      */
-    public function found($payload = '')
+    public function found(string $payload = '')
     {
         $this->payload = $payload;
         $this->statusCode = 200;
@@ -40,7 +43,7 @@ class HttpResponder
      *
      * @param string $payload
      */
-    public function notFound($payload = '')
+    public function notFound(string $payload = '')
     {
         $this->payload = $payload;
         $this->statusCode = 404;
@@ -52,7 +55,7 @@ class HttpResponder
      *
      * @param string $payload
      */
-    public function methodNotAllowed($payload = '')
+    public function methodNotAllowed(string $payload = '')
     {
         $this->payload = $payload;
         $this->statusCode = 405;
@@ -64,7 +67,7 @@ class HttpResponder
      *
      * @param string $payload
      */
-    public function error($payload = '')
+    public function error(string $payload = '')
     {
         $this->payload = $payload;
         $this->statusCode = 500;

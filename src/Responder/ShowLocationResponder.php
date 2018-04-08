@@ -1,4 +1,8 @@
-<?php namespace Nekudo\ShinyGeoip;
+<?php
+
+declare(strict_types=1);
+
+namespace Nekudo\ShinyGeoip;
 
 use Nekudo\ShinyGeoip\Responder\HttpResponder;
 
@@ -23,7 +27,7 @@ class ShowLocationResponder extends HttpResponder
      *
      * @param string $callback
      */
-    public function setCallback($callback)
+    public function setCallback(string $callback)
     {
         $this->callback = $callback;
         $this->responseType = 'javascript';
@@ -57,7 +61,7 @@ class ShowLocationResponder extends HttpResponder
      *
      * @param string $payload
      */
-    protected function respondLocation($payload)
+    protected function respondLocation(string $payload)
     {
         if ($this->responseType === 'javascript') {
             header('Content-Type: application/javascript', true);

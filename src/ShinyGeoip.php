@@ -8,6 +8,8 @@
  * For more information visit: https://github.com/nekudo/shiny_geoip
  */
 
+declare(strict_types=1);
+
 namespace Nekudo\ShinyGeoip;
 
 use Nekudo\ShinyGeoip\Action\ShowHomepageAction;
@@ -35,25 +37,38 @@ class ShinyGeoip
         'callback' => '',
     ];
 
+    protected $config = [];
+
+    public function __construct(array $config)
+    {
+        $this->config = $config;
+    }
+
     /**
      * Routes the request and executes corresponding action.
      */
     public function dispatch()
     {
-        $this->route();
-        switch ($this->route) {
-            case 'api':
-                $action = new ShowLocationAction;
-                $action->__invoke($this->arguments);
-                break;
-            case 'home':
-                $action = new ShowHomepageAction;
-                $action->__invoke();
-                break;
-            default:
-                $responder = new HttpResponder;
-                $responder->notFound(':( Page not found.');
-                break;
+        try {
+            $this->route();
+
+            switch ($this->route) {
+                case 'api':
+                    $action = new ShowLocationAction($this->config);
+                    $action->__invoke($this->arguments);
+                    break;
+                case 'home':
+                    $action = new ShowHomepageAction($this->config);
+                    $action->__invoke();
+                    break;
+                default:
+                    $responder = new HttpResponder;
+                    $responder->notFound(':( Page not found.');
+                    break;
+            }
+        } catch (\Exception $e) {
+            $responder = new HttpResponder;
+            $responder->error($e->getMessage());
         }
     }
 
@@ -62,7 +77,7 @@ class ShinyGeoip
      *
      * @return bool
      */
-    protected function route()
+    protected function route(): bool
     {
         $urlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         if ($urlPath === false) {
@@ -85,7 +100,7 @@ class ShinyGeoip
      *
      * @param string $urlPath
      */
-    protected function parseArgumentsFromRequest($urlPath)
+    protected function parseArgumentsFromRequest(string $urlPath)
     {
         $pathParts = explode('/', $urlPath);
         foreach ($pathParts as $part) {

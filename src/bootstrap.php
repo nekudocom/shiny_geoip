@@ -1,5 +1,10 @@
 <?php
+
+declare(strict_types=1);
+
 define('PROJECT_ROOT', __DIR__ . '/../');
+
+$config = include PROJECT_ROOT . 'config/config.php';
 
 require_once PROJECT_ROOT . 'src/ShinyGeoip.php';
 require_once PROJECT_ROOT . 'src/Action/ShowHomepageAction.php';

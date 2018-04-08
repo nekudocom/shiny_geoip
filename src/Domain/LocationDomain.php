@@ -1,26 +1,32 @@
-<?php namespace Nekudo\ShinyGeoip\Domain;
+<?php
+
+declare(strict_types=1);
+
+namespace Nekudo\ShinyGeoip\Domain;
 
 use MaxMind\Db\Reader;
 
 class LocationDomain
 {
     /**
-     * @var string $pathToLocationDb
-     */
-    protected $pathToLocationDb;
-
-    /**
      * @var Reader $reader
      */
     protected $reader;
 
+    /** @var array $config */
+    protected $config;
+
     /**
      * Init the GeoLite database reader.
+     *
+     * @param array $config
+     * @throws \MaxMind\Db\Reader\InvalidDatabaseException
      */
-    public function __construct()
+    public function __construct(array $config)
     {
-        $this->pathToLocationDb = PROJECT_ROOT . 'data/GeoLite2-City.mmdb';
-        $this->reader = new Reader($this->pathToLocationDb);
+        $this->config = $config;
+        $pathToMaxmindDb = $config['mmdb_path'];
+        $this->reader = new Reader($pathToMaxmindDb);
     }
 
     /**
@@ -29,7 +35,7 @@ class LocationDomain
      * @param string $ip
      * @return array
      */
-    public function getRecord($ip)
+    public function getRecord(string $ip): array
     {
         try {
             $record = $this->reader->get($ip);
@@ -53,7 +59,7 @@ class LocationDomain
      * @param string $lang
      * @return array
      */
-    public function shortenRecord(array $record, $lang)
+    public function shortenRecord(array $record, string $lang): array
     {
         $recordShort = [
             'city' => false,
@@ -100,5 +106,120 @@ class LocationDomain
         }
 
         return $recordShort;
+    }
+
+    /**
+     * Adds data from geonames database to the record.
+     *
+     * @param array $record
+     * @return array
+     */
+    public function addGeonamesData(array $record): array
+    {
+        if (!isset($record['city'])) {
+            return $record;
+        }
+        if (!isset($record['city']['geoname_id'])) {
+            return $record;
+        }
+
+        $geonameId = (int) $record['city']['geoname_id'];
+        $geonamesRecord = $this->getGeonamesRecord($geonameId);
+        if (empty($geonamesRecord)) {
+            return $record;
+        }
+
+        $record['geonames'] = $geonamesRecord;
+
+        return $record;
+    }
+
+    /**
+     * Fetches a record from the geonames datanase.
+     *
+     * @param int $geonameId
+     * @return array
+     */
+    private function getGeonamesRecord(int $geonameId): array
+    {
+        if ($this->redisAvailable() === false) {
+            return [];
+        }
+
+        try {
+            $redis = $this->getRedisClient();
+            $geonameKey = (string)$geonameId;
+            $record = $redis->get($geonameKey);
+            if (empty($record)) {
+                return [];
+            }
+        } catch (\RedisException $e) {
+            return [];
+        }
+
+        $values = json_decode($record, true);
+        if (empty($values)) {
+            return [];
+        }
+
+        $keys = [
+            'geonameid',
+            'name',
+            'asciiname',
+            'alternatenames',
+            'latitude',
+            'longitude',
+            'feature_class',
+            'feature_code',
+            'country_code',
+            'cc2',
+            'admin1_code',
+            'admin2_code',
+            'admin3_code',
+            'admin4_code',
+            'population',
+            'elevation',
+            'dem',
+            'timezone',
+            'modification_date',
+        ];
+
+        return array_combine($keys, $values);
+    }
+
+    /**
+     * Check is redis extension is installed.
+     *
+     * @return bool
+     */
+    private function redisAvailable(): bool
+    {
+        if ($this->config['redis_enabled'] === false) {
+            return false;
+        }
+        return class_exists('Redis');
+    }
+
+    /**
+     * Creates redis client ready to use.
+     *
+     * @return \Redis
+     */
+    private function getRedisClient(): \Redis
+    {
+        $redis = new \Redis;
+        switch ($this->config['redis_connection_type']) {
+            case 'socket':
+                $redis->connect($this->config['redis_socket']);
+                break;
+            case 'tcp':
+                $redis->connect($this->config['redis_host'], $this->config['redis_port']);
+                break;
+            default:
+                throw new \RuntimeException('Invalid redis configuration.');
+        }
+        $redis->select($this->config['redis_db']);
+
+        return $redis;
     }
 }
