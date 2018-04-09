@@ -16,9 +16,9 @@ require_once PROJECT_ROOT . 'src/Responder/ShowHomepageResponder.php';
 
 // If maxminddb extension is not installed we need to include the PHP reader:
 if (!class_exists('MaxMind\Db\Reader')) {
-    require_once PROJECT_ROOT . 'vendor/maxmind-db/reader/src/MaxMind/Db/Reader.php';
-    require_once PROJECT_ROOT . 'vendor/maxmind-db/reader/src/MaxMind/Db/Reader/Decoder.php';
-    require_once PROJECT_ROOT . 'vendor/maxmind-db/reader/src/MaxMind/Db/Reader/Util.php';
-    require_once PROJECT_ROOT . 'vendor/maxmind-db/reader/src/MaxMind/Db/Reader/Metadata.php';
-    require_once PROJECT_ROOT . 'vendor/maxmind-db/reader/src/MaxMind/Db/Reader/InvalidDatabaseException.php';
+    require_once PROJECT_ROOT . 'vendor/MaxMind/Db/Reader.php';
+    require_once PROJECT_ROOT . 'vendor/MaxMind/Db/Reader/Decoder.php';
+    require_once PROJECT_ROOT . 'vendor/MaxMind/Db/Reader/Util.php';
+    require_once PROJECT_ROOT . 'vendor/MaxMind/Db/Reader/Metadata.php';
+    require_once PROJECT_ROOT . 'vendor/MaxMind/Db/Reader/InvalidDatabaseException.php';
 }
