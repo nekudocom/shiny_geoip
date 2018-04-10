@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Nekudo\ShinyGeoip\Cli;
 
+require_once __DIR__ . '/../src/bootstrap_cli.php';
+
+use Nekudo\ShinyGeoip\Core\Cli\Cli;
 use Nekudo\ShinyGeoip\Domain\LocationDomain;
 
-class Bechmark
+class Bechmark extends Cli
 {
     /**
      * Number of queries to execute during benchmark.
@@ -14,21 +17,13 @@ class Bechmark
     const DB_QUERIES_TO_RUN = 50000;
 
     /**
-     * @var array $config
-     */
-    private $config;
-
-    public function __construct(array $config)
-    {
-        $this->config = $config;
-    }
-
-    /**
      * Executes the benchmark.
      */
     public function __invoke()
     {
         try {
+            $this->error('test');
+            exit;
             $domain = new LocationDomain($this->config);
             $this->runBechmark($domain);
         } catch (\Exception $e) {
@@ -59,18 +54,7 @@ class Bechmark
         $duration = $endTime - $startTime;
         $this->out('Requests per second: ' . $maxQueries / $duration);
     }
-
-    /**
-     * Echos out a message to stdout.
-     *
-     * @param string $message
-     */
-    private function out(string $message)
-    {
-        echo $message . PHP_EOL;
-    }
 }
 
-require_once __DIR__ . '/../src/bootstrap.php';
 $benchmark = new Bechmark($config);
 $benchmark->__invoke();
