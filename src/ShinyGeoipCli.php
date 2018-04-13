@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Nekudo\ShinyGeoip;
 
+use Nekudo\ShinyGeoip\Action\Cli\BenchmarkAction;
+use Nekudo\ShinyGeoip\Action\Cli\ShowHelpAction;
 use Nekudo\ShinyGeoip\Responder\CliResponder;
 
 class ShinyGeoipCli
@@ -13,9 +15,15 @@ class ShinyGeoipCli
      */
     protected $config = [];
 
+    /**
+     * @var CliResponder $responder
+     */
+    protected $responder;
+
     public function __construct(array $config)
     {
         $this->config = $config;
+        $this->responder = new CliResponder;
     }
 
     /**
@@ -27,25 +35,28 @@ class ShinyGeoipCli
     {
         try {
             $this->checkForCliMode();
-            $action = $this->getAction($arguments);
-            switch ($action) {
+            $actionName = $this->getAction($arguments);
+            switch ($actionName) {
                 case 'benchmark':
-                    // @todo Call benchmark action...
+                    $action = new BenchmarkAction($this->config, $this->responder);
                     break;
                 case 'help':
-                    // @todo Call help action...
+                    $action = new ShowHelpAction($this->config, $this->responder);
                     break;
                 default:
                     throw new \RuntimeException('Invalid action. Use "help" for list of available actions.');
             }
+
+            $action->__invoke($arguments);
         } catch (\Exception $e) {
-            $responder = new CliResponder;
-            $responder->error($e->getMessage());
+            $this->responder->error($e->getMessage());
         }
     }
 
     /**
      * Checks if script is executed in cli mode.
+     *
+     * @throws \RuntimeException
      */
     private function checkForCliMode()
     {
