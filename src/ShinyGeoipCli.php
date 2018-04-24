@@ -6,6 +6,7 @@ namespace Nekudo\ShinyGeoip;
 
 use Nekudo\ShinyGeoip\Action\Cli\BenchmarkAction;
 use Nekudo\ShinyGeoip\Action\Cli\ShowHelpAction;
+use Nekudo\ShinyGeoip\Action\Cli\UpdateMmdbAction;
 use Nekudo\ShinyGeoip\Responder\CliResponder;
 
 class ShinyGeoipCli
@@ -37,6 +38,9 @@ class ShinyGeoipCli
             $this->checkForCliMode();
             $actionName = $this->getAction($arguments);
             switch ($actionName) {
+                case 'mmdb_update':
+                    $action = new UpdateMmdbAction($this->config, $this->responder);
+                    break;
                 case 'benchmark':
                     $action = new BenchmarkAction($this->config, $this->responder);
                     break;

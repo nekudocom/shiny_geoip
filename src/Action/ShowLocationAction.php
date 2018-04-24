@@ -50,11 +50,6 @@ class ShowLocationAction
             return false;
         }
 
-        // add data from geonames database in "full" mode:
-        if ($arguments['type'] === 'full') {
-            $record = $domain->addGeonamesData($record);
-        }
-
         // shorten the record data to save traffic:
         if ($arguments['type'] === 'short') {
             $record = $domain->shortenRecord($record, $arguments['lang']);

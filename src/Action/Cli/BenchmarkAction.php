@@ -9,11 +9,6 @@ use Nekudo\ShinyGeoip\Domain\LocationDomain;
 class BenchmarkAction extends CliAction
 {
     /**
-     * @var bool $includeGeonameLookup
-     */
-    private $includeGeonameLookup = false;
-
-    /**
      * @var int $numLookups
      */
     private $numLookups = 50000;
@@ -31,19 +26,8 @@ class BenchmarkAction extends CliAction
      */
     public function __invoke(array $arguments)
     {
-        $this->setFlags($arguments);
         $this->domain = new LocationDomain($this->config);
         $this->runBenchmark();
-    }
-
-    /**
-     * Sets flags from CLI arguments.
-     *
-     * @param array $arguments
-     */
-    private function setFlags(array $arguments)
-    {
-        $this->includeGeonameLookup = in_array('--with-geonames', $arguments);
     }
 
     /**
@@ -55,10 +39,7 @@ class BenchmarkAction extends CliAction
         for ($i = 0; $i < $this->numLookups; $i++) {
             $ip = long2ip(rand(0, pow(2, 32) -1));
             try {
-                $record = $this->domain->getRecord($ip);
-                if ($this->includeGeonameLookup === true) {
-                    $this->domain->addGeonamesData($record);
-                }
+                $this->domain->getRecord($ip);
             } catch (\Exception $e) {
             }
             if ($i % 1000 == 0) {
