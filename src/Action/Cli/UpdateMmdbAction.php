@@ -6,95 +6,132 @@ namespace Nekudo\ShinyGeoip\Action\Cli;
 
 class UpdateMmdbAction extends CliAction
 {
-    private $tmpPath = '';
+    /**
+     * @var string $pathTmp Path to folder containing mmdb file.
+     */
+    private $pathTmp = '';
 
-    private $mmdbArchiveName = '';
+    /**
+     * @var string $pathArchive Path to the downloaded mmdb archive.
+     */
+    private $pathArchive = '';
 
-    private $mmdbFileName = '';
+    /**
+     * @var string $pathMmdb Path to current mmdb file.
+     */
+    private $pathMmdb = '';
 
+    /**
+     * @var string $pathMmdbNew Path to new/downloaded mmdb file.
+     */
+    private $pathMmdbNew = '';
+
+    /**
+     * Downloads new mmdb file and replaces the current version with the new one.
+     *
+     * @param array $arguments
+     * @throws \Exception
+     */
     public function __invoke(array $arguments)
     {
         $this->initPaths();
 
-        $archiveUrl = $this->config['mmdb_url'];
-        $tmpPath = dirname($this->config['mmdb_path']);
+        $this->responder->out('Downloading new mmdb...');
+        $this->downloadMmdbArchive();
 
+        $this->responder->out('Extracting archive...');
+        $this->extractMmdbArchive();
 
-        $archivePath = $this->downloadMmdbArchive($archiveUrl, $tmpPath);
-        $this->extractMmdbArchive($archivePath, $tmpPath);
-        $pathNewMmdb = $this->findMmdbFile($tmpPath);
-        $this->replaceMmdbFile($this->config['mmdb_path'], $pathNewMmdb);
-        $this->cleanup($archivePath, dirname($pathNewMmdb));
+        $this->responder->out('Replacing mmdb file...');
+        $this->findMmdbFile();
+        $this->replaceMmdbFile();
+        $this->cleanup();
+
         $this->responder->success('Update completed.');
     }
 
+    /**
+     * Sets some paths required in other methods.
+     */
     private function initPaths()
     {
-        $this->tmpPath = dirname($this->config['mmdb_path']);
-        $this->mmdbArchiveName = basename($this->config['mmdb_url']);
-        $this->mmdbFileName = basename($this->config['mmdb_path']);
+        $this->pathMmdb = $this->config['mmdb_path'];
+        $this->pathTmp = dirname($this->pathMmdb);
+        $this->pathArchive = $this->pathTmp . '/' . basename($this->config['mmdb_url']);
     }
 
-    private function downloadMmdbArchive(string $archiveUrl, string $targetPath): string
+    /**
+     * Downloads mmdb-archive from url set in configuration.
+     *
+     * @throws \Exception
+     */
+    private function downloadMmdbArchive()
     {
-        $this->responder->out('Starting download of mmdb file...');
         $wgetCommandPattern = 'wget -q -P %s %s';
-        $wgetCommand = sprintf($wgetCommandPattern, $targetPath, $archiveUrl);
+        $wgetCommand = sprintf($wgetCommandPattern, $this->pathTmp, $this->config['mmdb_url']);
         exec($wgetCommand, $output, $exitCode);
-        if ($exitCode !== 0) {
+        if ($exitCode !== 0 || false === file_exists($this->pathArchive)) {
             throw new \Exception('Could not download latest mmdb file.');
         }
-
-        $this->responder->out('Download completed.');
-        return $targetPath . '/' . basename($archiveUrl);
     }
 
-    private function extractMmdbArchive(string $archivePath, string $tmpPath)
+    /**
+     * Extracts mmdb archive into temporary folder.
+     *
+     * @throws \Exception
+     */
+    private function extractMmdbArchive()
     {
-        $this->responder->out('Extracting archive...');
         $commandPattern = "tar -xf %s -C %s --wildcards --no-anchored '*.mmdb'";
-        $unzipCommand = sprintf(
-            $commandPattern,
-            $archivePath,
-            $tmpPath
-        );
+        $unzipCommand = sprintf($commandPattern, $this->pathArchive, $this->pathTmp);
         exec($unzipCommand, $output, $exitCode);
         if ($exitCode !== 0) {
             throw new \Exception('Could not extract mmdb archive.');
         }
     }
 
-    private function findMmdbFile(string $tmpPath): string
+    /**
+     * Finds path to new mmdb file in temporary folder.
+     * This method is needed cause the subfolder in the mmdb tar archive changes.
+     *
+     * @throws \Exception
+     */
+    private function findMmdbFile()
     {
-        $newDbPath = '';
-        $directory = new \RecursiveDirectoryIterator($tmpPath);
+        $directory = new \RecursiveDirectoryIterator($this->pathTmp);
         $iterator = new \RecursiveIteratorIterator($directory);
         $regex = new \RegexIterator($iterator, '/^.+\.mmdb$/i', \RegexIterator::GET_MATCH);
         foreach ($regex as $match) {
-            $newDbPath = ($match[0] === $this->config['mmdb_path']) ? '' : $match[0];
-            if ($newDbPath !== '') {
+            $this->pathMmdbNew = ($match[0] === $this->pathMmdb) ? '' : $match[0];
+            if ($this->pathMmdbNew !== '') {
                 break;
             }
         }
 
-        if ($newDbPath === '') {
+        if ($this->pathMmdbNew === '') {
             throw new \Exception('Could not find new mmdb file.');
         }
-
-        return $newDbPath;
     }
 
-    private function replaceMmdbFile(string $pathOldMmdb, string $pathNewMmdb)
+    /**
+     * Replaces current mmdb file with new one which was just downloaded.
+     *
+     * @throws \Exception
+     */
+    private function replaceMmdbFile()
     {
-        $res = rename($pathOldMmdb, $pathNewMmdb);
+        $res = rename($this->pathMmdbNew, $this->pathMmdb);
         if ($res !== true) {
             throw new \Exception('Could not move mmdb file to target folder.');
         }
     }
 
-    private function cleanup(string $archivePath, string $newMmdbFolder)
+    /**
+     * Removes temporary files and folders.
+     */
+    private function cleanup()
     {
-        unlink($archivePath);
-        rmdir($newMmdbFolder);
+        unlink($this->pathArchive);
+        rmdir(dirname($this->pathMmdbNew));
     }
 }
