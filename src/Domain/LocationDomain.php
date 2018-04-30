@@ -13,9 +13,6 @@ class LocationDomain
      */
     protected $reader;
 
-    /** @var array $config */
-    protected $config;
-
     /**
      * Init the GeoLite database reader.
      *
@@ -24,9 +21,7 @@ class LocationDomain
      */
     public function __construct(array $config)
     {
-        $this->config = $config;
-        $pathToMaxmindDb = $config['mmdb_path'];
-        $this->reader = new Reader($pathToMaxmindDb);
+        $this->reader = new Reader($config['mmdb_path']);
     }
 
     /**
