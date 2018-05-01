@@ -37,7 +37,12 @@ class BenchmarkAction extends CliAction
     {
         $startTime = microtime(true);
         for ($i = 0; $i < $this->numLookups; $i++) {
-            $ip = long2ip(rand(0, pow(2, 32) -1));
+            if (version_compare(PHP_VERSION, '7.1.0') >= 0) {
+                $rv = rand(0, pow(2, 32) -1);
+            } else {
+                $rv = (string) rand(0, pow(2, 32) -1);
+            }
+            $ip = long2ip($rv);
             try {
                 $this->domain->getRecord($ip);
             } catch (\Exception $e) {
