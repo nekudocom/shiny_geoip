@@ -118,7 +118,9 @@
             a callback function has to be provided within the request using the <em>?callback=</em> parameter.
         </p>
 
+
         <h4>Examples</h4>
+        <pre>http://geoip.nekudo.com/api</pre>
         <pre>http://geoip.nekudo.com/api/8.8.8.8</pre>
         <pre>http://geoip.nekudo.com/api/2a00:a200:0:f::888</pre>
         <pre>http://geoip.nekudo.com/api/8.8.8.8/full</pre>
@@ -138,8 +140,8 @@ function foo(data) {
         <p class="textblock">This service is also available via <a href="https://geoip.nekudo.com">https</a>.</p>
 
         <h4>Limits</h4>
-        <p class="textblock">The API follows a fair use policy. There are no limits by default but if the service is abused
-        your IP may get blocked.</p>
+        <p class="textblock">The API follows a fair use policy. There are no limits by default but if the service is
+            abused your IP may get blocked.</p>
 
         <h4>Support/Donate</h4>
         <p class="textblock">

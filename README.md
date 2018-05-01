@@ -1,31 +1,39 @@
 ShinyGeoip
 =====
 
-This API contains the sourcecode of the [geoip.nekudo.com](http://geoip.nekudo.com) website. It is an HTTP API to
-request location data for IP addresses. Responses can be in JSON or JSONP format.
-The API is based on the [Maxmind GeoLite2 Database](http://dev.maxmind.com/geoip/geoip2/geolite2/).
+This repository contains the sourcecode of [geoip.nekudo.com](http://geoip.nekudo.com). You can use it to setup
+your own geolocation API. 
 
-## Demo/Examples
-The live version of this API can be found at: [geoip.nekudo.com](http://geoip.nekudo.com)
-Here you will also find example requests.
- 
-## Requirements
-To run your own instance of ShinyGeoip all you'll need is a webserver that supports PHP and URL rewriting.
+The API utilizes the [Maxmind GeoLite2 Database](http://dev.maxmind.com/geoip/geoip2/geolite2/).
 
-## Installation
-To setup you own API follow the following steps:
+## Documentation
 
-1. Download/Clone this repository to your webserver.
+### Requirements
+
+* Webserver supporting URL rewrites (Apache, Nginx, lighttpd, ...)
+* PHP >= 7.0
+* MaxMind [DbReader PHP-Extension](https://github.com/maxmind/MaxMind-DB-Reader-php) (optional for better performance)
+
+
+### Installation
+To setup you own API follow these steps:
+
+1. Download the latest release of this repository to your server.
 2. Download a copy of the [GeoLite2 Database](http://dev.maxmind.com/geoip/geoip2/geolite2/) to the ```data``` folder.
-3. Point your webserver to the ```www``` folder and rewrite all requests to the index.php file.
+3. Adjust the config file in `cofig/config.php` if necessary.
+4. Point your webserver to the ```www``` folder.
+5. Rewrite all requests to the index.php file (Using htaccess, nginx configuration, e.g.).
 
-You should now have your own instance up and running.
+### Database Updates
 
-### Optional steps
+ShinyGeoip includes a CLI application which can be used to update the mmdb-file. To use this updater
+run the following command from the project root folder:
 
-* Maxmind provides a [PHP extension](http://maxmind.github.io/GeoIP2-php/) which is a drop-in replacement for the
-PHP based database reader. Using this extension brings an enormous performance boost and you should use this extension
-whenever possible.
+```php cli/app.php mmdb_update```
+
+You can also run a simple benchmark with the following command:
+
+```php cli/app.php benchmark```
 
 ## Frequently Asked Questions
 
