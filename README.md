@@ -20,7 +20,7 @@ To setup you own API follow these steps:
 
 1. Download the latest release of this repository to your server.
 2. Download a copy of the [GeoLite2 Database](http://dev.maxmind.com/geoip/geoip2/geolite2/) to the ```data``` folder.
-3. Adjust the config file in `cofig/config.php` if necessary.
+3. Adjust the config file in `config/config.php` if necessary.
 4. Point your webserver to the ```www``` folder.
 5. Rewrite all requests to the index.php file (Using htaccess, nginx configuration, e.g.).
 
