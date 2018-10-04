@@ -46,6 +46,9 @@ It is our top priority to prevent service disruption for current users of the Ge
 
 If you have questions or feedback of any sort, please do not hesitate to send us an email at support@ipapi.com. 
 
+## Open-Source
+
+Please stand by for our brand-new nekudo Open-Source Project, which will accommodate all existing Open-Source users. More information will be available on December 1st, 2018. 
 
 
 
