@@ -1,4 +1,57 @@
-ShinyGeoip
+![nekudo ipapi](https://github.com/nekudocom/shiny_geoip/blob/master/warning-ipapi.jpg?raw=true)
+
+# ShinyGeoip / geoip.nekudo.com API - Good News
+
+*[The current API available at geoip.nekudo.com is now deprecated and will be discontinued on Nov 5th, 2018]*
+
+We are happy to announce that after months of preparation and development, the Open-Source Project ShinyGeoip, or better known as GeoIP Nekudo, is turning into a fully-fledged IP Geolocation API platform capable of offering more than 45 data points for each processed IP address, including Time Zone data, Currency data, Language data, Connection data and Risk Assessment data. API responses are delivered within only a few milliseconds, an Uptime Service-Level Agreement has been established and more than 10 Customer Service and Tech Support members will be ready to help.  
+
+## geoip.nekudo.com becomes ipapi.com
+
+In the process of rebuilding the entire API from scratch we've also decided to give the new product a new name that reflects in the best way possible the simplicity and power of our new brand: **[ipapi.com](https://ipapi.com)**. 
+
+## Required Changes to Legacy Integrations (freegeoip.net/json/xml) 
+
+As of November 5th 2018 the API available at geoip.nekudo.com will be discontinued. To keep using our new, still free IP to location API you will be required to follow 2 simple steps: 
+
+1. Register for a free ipapi API Key
+
+The new ipapi.com platform offers a generous Free Plan, for which you can sign up here: https://ipapi.com/product. This Plan comes with a free amount of API requests that can be made each month, without an expiration date, and will remain free forever. 
+
+2. Integrate the new ipapi request URL
+
+Almost done! As the next step, you will need to make a few adjustments to your current implementation to point to the new ipapi API URL. It should take less than 10 minutes to make this change and the only difference to your current implementation is the requirement to add your new API Key to your request URL and parse the new API response JSON or XML structure.
+
+The easiest way to learn more is signing up and taking a look at our [3-Step Quickstart Guide](https://ipapi.com/quickstart). To go into more detail and learn about all new features, you can also head over to our complete [API Documentation](https://ipapi.com/documentation). 
+
+## New features with ipapi
+To name just a few features that come with the new ipapi product: 
+
+- Advanced IP Data
+- Faster Response Times
+- Bulk IP Requests
+- Security & Fraud Prevention 
+- ASN & ISP Lookup
+- Language Detection
+- Currency Detection
+- Timezone Detection
+
+## Next Steps
+
+- Deprecation of old API on Nov 5th, 2018
+
+It is our top priority to prevent service disruption for current users of the GeoIP Nekudo API, which is why we've decided to allow a period of 30 days before officially discontinuing all deprecated API endpoints. To make sure you're on the safe side and your implementation remains up and running, please *sign up for a free ipapi API Key* as soon as possible.
+
+- Any Questions? Please get in touch!
+
+If you have questions or feedback of any sort, please do not hesitate to send us an email at support@ipapi.com. 
+
+
+
+
+
+
+ShinyGeoip - Deprecated Documentation
 =====
 
 This repository contains the sourcecode of [geoip.nekudo.com](http://geoip.nekudo.com). You can use it to setup
