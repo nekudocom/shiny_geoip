@@ -10,7 +10,7 @@ We are happy to announce that after months of preparation and development, the O
 
 In the process of rebuilding the entire API from scratch we've also decided to give the new product a new name that reflects in the best way possible the simplicity and power of our new brand: **[ipapi.com](https://ipapi.com)**. 
 
-## Required Changes to Legacy Integrations (freegeoip.net/json/xml) 
+## Required Changes to Legacy Integrations 
 
 As of November 5th 2018 the API available at geoip.nekudo.com will be discontinued. To keep using our new, still free IP to location API you will be required to follow 2 simple steps: 
 
