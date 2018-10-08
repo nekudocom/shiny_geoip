@@ -2,7 +2,7 @@
 
 # ShinyGeoip / geoip.nekudo.com API - Good News
 
-*[The current API available at geoip.nekudo.com is now deprecated and will be discontinued on Nov 5th, 2018]*
+*[The current API available at geoip.nekudo.com is now deprecated and will be discontinued on Oct 8th, 2018]*
 
 We are happy to announce that after months of preparation and development, the Open-Source Project ShinyGeoip, or better known as GeoIP Nekudo, is turning into a fully-fledged IP Geolocation API platform capable of offering more than 45 data points for each processed IP address, including Time Zone data, Currency data, Language data, Connection data and Risk Assessment data. API responses are delivered within only a few milliseconds, an Uptime Service-Level Agreement has been established and more than 10 Customer Service and Tech Support members will be ready to help.  
 
@@ -12,7 +12,7 @@ In the process of rebuilding the entire API from scratch we've also decided to g
 
 ## Required Changes to Legacy Integrations 
 
-As of November 5th 2018 the API available at geoip.nekudo.com will be discontinued. To keep using our new, still free IP to location API you will be required to follow 2 simple steps: 
+As of October 8th 2018 the API available at geoip.nekudo.com will be discontinued. To keep using our new, still free IP to location API you will be required to follow 2 simple steps: 
 
 1. Register for a free ipapi API Key
 
@@ -38,7 +38,7 @@ To name just a few features that come with the new ipapi product:
 
 ## Next Steps
 
-- Deprecation of old API on Nov 5th, 2018
+- Deprecation of old API on Oct 8th, 2018
 
 It is our top priority to prevent service disruption for current users of the GeoIP Nekudo API, which is why we've decided to allow a period of 30 days before officially discontinuing all deprecated API endpoints. To make sure you're on the safe side and your implementation remains up and running, please *sign up for a free ipapi API Key* as soon as possible.
 
