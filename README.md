@@ -1,4 +1,4 @@
-![nekudo ipapi](https://github.com/nekudocom/shiny_geoip/blob/master/warning-ipapi.jpg?raw=true)
+![nekudo ipapi](https://fv15.failiem.lv/thumb_show.php?i=4bvefbbt&view)
 
 # ShinyGeoip / geoip.nekudo.com API - Good News
 
