@@ -1,5 +1,3 @@
-![nekudo ipapi](https://fv15.failiem.lv/thumb_show.php?i=4bvefbbt&view)
-
 # ShinyGeoip / geoip.nekudo.com API - Good News
 
 *[The current API available at geoip.nekudo.com is now deprecated and will be discontinued on Oct 8th, 2018]*
